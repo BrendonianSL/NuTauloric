@@ -1,28 +1,13 @@
 import { z } from 'zod';
-import { pgTable, serial, text } from 'drizzle-orm/pg-core';
-
-// Database Definition.
-export const RunnersTable = pgTable('Runners', {
-  id: serial('id').primaryKey(),
-  name: text('name').notNull(),
-})
-
 const RunnerShells = z.enum(['Vandal', 'Destroyer', 'Triage', 'Theif', 'Assasin', 'Recon', 'Sentinel', 'Rook']);
-
 export const Runners = z.object({
     id: z.number(),
     name: z.string(),
-})
-
+});
 export const RunnersResponse = z.object({
     data: z.array(Runners),
     message: z.string(),
 });
-
 export const RunnersQuery = z.object({
     name: RunnerShells.optional(),
-})
-
-export type Runners = z.infer<typeof Runners>;
-export type RunnersResponse = z.infer<typeof RunnersResponse>;
-export type RunnersQuery = z.infer<typeof RunnersQuery>;
+});
